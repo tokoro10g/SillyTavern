@@ -12,6 +12,7 @@ import { OpenAITtsProvider } from './openai.js';
 import { XTTSTtsProvider } from './xtts.js';
 import { AllTalkTtsProvider } from './alltalk.js';
 import { SpeechT5TtsProvider } from './speecht5.js';
+import { StyleBertVits2TtsProvider } from './stylebertvits2.js';
 import { SlashCommandParser } from '../../slash-commands/SlashCommandParser.js';
 import { SlashCommand } from '../../slash-commands/SlashCommand.js';
 import { ARGUMENT_TYPE, SlashCommandArgument, SlashCommandNamedArgument } from '../../slash-commands/SlashCommandArgument.js';
@@ -81,6 +82,7 @@ const ttsProviders = {
     OpenAI: OpenAITtsProvider,
     AllTalk: AllTalkTtsProvider,
     SpeechT5: SpeechT5TtsProvider,
+    StyleBertVits2: StyleBertVits2TtsProvider,
 };
 let ttsProvider;
 let ttsProviderName;
