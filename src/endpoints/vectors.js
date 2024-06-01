@@ -5,7 +5,7 @@ const sanitize = require('sanitize-filename');
 const { jsonParser } = require('../express-common');
 
 // Don't forget to add new sources to the SOURCES array
-const SOURCES = ['transformers', 'mistral', 'openai', 'extras', 'palm', 'togetherai', 'nomicai', 'cohere'];
+const SOURCES = ['transformers', 'mistral', 'openai', 'extras', 'palm', 'togetherai', 'nomicai', 'cohere', 'infinity'];
 
 /**
  * Gets the vector for the given text from the given source.
@@ -32,6 +32,8 @@ async function getVector(source, sourceSettings, text, isQuery, directories) {
             return require('../vectors/makersuite-vectors').getMakerSuiteVector(text, directories);
         case 'cohere':
             return require('../vectors/cohere-vectors').getCohereVector(text, isQuery, directories, sourceSettings.model);
+        case 'infinity':
+            return require('../vectors/infinity-vectors').getInfinityVector(text);
     }
 
     throw new Error(`Unknown vector source ${source}`);
@@ -72,6 +74,9 @@ async function getBatchVector(source, sourceSettings, texts, isQuery, directorie
                 break;
             case 'cohere':
                 results.push(...await require('../vectors/cohere-vectors').getCohereBatchVector(batch, isQuery, directories, sourceSettings.model));
+                break;
+            case 'infinity':
+                results.push(...await require('../vectors/infinity-vectors').getInfinityBatchVector(batch));
                 break;
             default:
                 throw new Error(`Unknown vector source ${source}`);
